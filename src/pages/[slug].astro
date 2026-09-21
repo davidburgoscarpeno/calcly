@@ -5,6 +5,12 @@ import Faq from '../components/Faq.astro';
 import RelatedTools from '../components/RelatedTools.astro';
 import AdSlot from '../components/AdSlot.astro';
 import PercentTool from '../tools/PercentTool';
+import PercentChangeTool from '../tools/PercentChangeTool';
+import AgeTool from '../tools/AgeTool';
+import DateMathTool from '../tools/DateMathTool';
+import TimeMathTool from '../tools/TimeMathTool';
+import { LoanTool, TipTool, DiscountTool, VatTool, SalaryTool, CompoundCalcTool } from '../tools/MoneyTool';
+import { UnitTool, FractionTool, AverageTool, RatioTool } from '../tools/MiscTool';
 import { implementedTools, type Tool } from '../data/tools';
 import { site } from '../config';
 import { t } from '../i18n/en';
@@ -29,7 +35,21 @@ const schema = [
   <Breadcrumbs crumbs={[{ name: 'Home', href: '/' }, { name: tool.category }, { name: tool.name }]} />
   <h1>{tool.name}</h1>
   <p class="lead">{tool.intro}</p>
-  <PercentTool client:load />
+  {tool.component === 'PercentTool' && <PercentTool client:load />}
+  {tool.component === 'PercentChangeTool' && <PercentChangeTool client:load mode={tool.mode as 'increase' | 'difference'} />}
+  {tool.component === 'AgeTool' && <AgeTool client:load />}
+  {tool.component === 'DateMathTool' && <DateMathTool client:load mode={tool.mode as 'between' | 'add'} />}
+  {tool.component === 'TimeMathTool' && <TimeMathTool client:load mode={tool.mode as 'add' | 'between'} />}
+  {tool.component === 'LoanTool' && <LoanTool client:load />}
+  {tool.component === 'TipTool' && <TipTool client:load />}
+  {tool.component === 'DiscountTool' && <DiscountTool client:load />}
+  {tool.component === 'VatTool' && <VatTool client:load />}
+  {tool.component === 'SalaryTool' && <SalaryTool client:load />}
+  {tool.component === 'CompoundCalcTool' && <CompoundCalcTool client:load />}
+  {tool.component === 'UnitTool' && <UnitTool client:load />}
+  {tool.component === 'FractionTool' && <FractionTool client:load />}
+  {tool.component === 'AverageTool' && <AverageTool client:load />}
+  {tool.component === 'RatioTool' && <RatioTool client:load />}
   <AdSlot position="after-tool" />
   <h2>{t.tool.howTo}</h2>
   <ol>{tool.howTo.map((step) => <li>{step}</li>)}</ol>
